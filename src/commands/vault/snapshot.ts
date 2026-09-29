@@ -16,8 +16,20 @@ function resolveTemplateId(template: string): {id: string; name: string | null} 
     const out = runAgentia(['cicd', 'data', 'template', 'get', template, '--json'])
     const parsed = parseJson(out)
     const node = parsed?.result ?? parsed
-    const id = typeof node?.id === 'string' ? node.id : template
-    const name = typeof node?.name === 'string' ? node.name : null
+    const inner =
+      node?.id || node?.templateId
+        ? node
+        : Object.values(node ?? {}).find(
+            (v): v is Record<string, unknown> =>
+              typeof v === 'object' && v !== null &&
+              ((v as Record<string, unknown>)['templateId'] === template ||
+                (v as Record<string, unknown>)['id'] === template),
+          ) ?? node
+    const rec = inner as Record<string, unknown>
+    const id = typeof rec?.['templateId'] === 'string' ? (rec['templateId'] as string)
+      : typeof rec?.['id'] === 'string' ? (rec['id'] as string) : template
+    const name = typeof rec?.['templateName'] === 'string' ? (rec['templateName'] as string)
+      : typeof rec?.['name'] === 'string' ? (rec['name'] as string) : null
     return {id, name}
   } catch {
     const out = runAgentia(['cicd', 'data', 'template', 'list', '--name', template, '--json'])

@@ -164,6 +164,10 @@ Changed entries list up to 20 differing fields each.
 | `-y, --yes` | Confirm the destructive send |
 | `-j, --json` | Machine readable output |
 
+Without a code it issues one and changes nothing. With a code but
+without `--yes` it previews the commit body and changes nothing. Only
+code plus `--yes` sends.
+
 ### `agentia vault export`
 
 | Flag | Description |
@@ -176,11 +180,7 @@ Changed entries list up to 20 differing fields each.
 
 Exports snapshot differences as a peer review changeset with added,
 removed and changed sections plus a reviewer checklist, or as CSV rows
-for spreadsheets.
-
-Without a code it issues one and changes nothing. With a code but
-without `--yes` it previews the commit body and changes nothing. Only
-code plus `--yes` sends.
+for spreadsheets. Fully offline, reads two files and writes one.
 
 ## Configuration
 

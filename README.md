@@ -164,6 +164,20 @@ Changed entries list up to 20 differing fields each.
 | `-y, --yes` | Confirm the destructive send |
 | `-j, --json` | Machine readable output |
 
+### `agentia vault export`
+
+| Flag | Description |
+|---|---|
+| `--from <file>` | Older snapshot file (required) |
+| `--to <file>` | Newer snapshot file (required) |
+| `--format md\|csv` | Changeset file format (default `md`) |
+| `-o, --output <path>` | Output file path |
+| `-j, --json` | Machine readable JSON summary |
+
+Exports snapshot differences as a peer review changeset with added,
+removed and changed sections plus a reviewer checklist, or as CSV rows
+for spreadsheets.
+
 Without a code it issues one and changes nothing. With a code but
 without `--yes` it previews the commit body and changes nothing. Only
 code plus `--yes` sends.
